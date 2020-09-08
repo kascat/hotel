@@ -9,13 +9,16 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const ROLE_MASTER = 'master';
+    const ROLE_CLIENT = 'client';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role'
     ];
 
     /**
@@ -26,4 +29,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 }
